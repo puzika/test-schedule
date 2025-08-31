@@ -1,0 +1,34 @@
+@use './breakpoints';
+
+.tableWrapper {
+  position: relative;
+  width: 80%;
+  margin: 5rem auto;
+
+  @include breakpoints.responsive(phone) {
+    width: 60%;
+  }
+}
+
+.btnWrapper {
+  position: absolute;
+  top: 50%;
+}
+
+.btnWrapperLeft {
+  left: 0;
+  translate: -150% -50%;
+
+  @include breakpoints.responsive(tablet) {
+    translate: -110% -50%;
+  }
+}
+
+.btnWrapperRight {
+  right: 0;
+  translate: 150% -50%;
+
+  @include breakpoints.responsive(tablet) {
+    translate: 110% -50%;
+  }
+}

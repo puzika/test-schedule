@@ -1,0 +1,73 @@
+@use 'sass:color';
+@use '../../colors';
+@use '../../breakpoints';
+
+.calendar {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: .1rem solid colors.$clr-border;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.row {
+  display: flex;
+
+  & > *:first-child {
+    width: 10rem;
+  }
+
+  & > *:not(:first-child) {
+    flex: 1;
+  }
+}
+
+.tableHeader > * {
+  border: .1rem solid colors.$clr-border;
+}
+
+.columnHeader {
+  background-color: colors.$clr-schedule-header;
+  color: colors.$clr-font-lts;
+  font-weight: bold;
+  text-transform: capitalize;
+  padding: 1rem 0;
+}
+
+.cell {
+  height: 2.5rem;
+  border: .1rem solid colors.$clr-border;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.timeSlot {
+  background-color: colors.$clr-time-slot;
+  color: colors.$clr-font-lt;
+}
+
+.available {
+  background-color: colors.$clr-available;
+
+  &:hover {
+    background-color: color.adjust(colors.$clr-available, $lightness: -10%);
+  }
+}
+
+.booked {
+  background-color: colors.$clr-booked;
+
+  &:hover {
+    background-color: color.adjust(colors.$clr-booked, $lightness: -10%);
+  }
+}
+
+.blocked {
+  background-color: colors.$clr-blocked;
+
+  &:hover {
+    background-color: color.adjust(colors.$clr-blocked, $lightness: -10%);
+  }
+}
