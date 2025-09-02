@@ -88,9 +88,16 @@ export default function Calendar({view, startDate, slotDuration, lessons, onSlot
         cellContent = <p className={styles.cellTextHidden}>{formattedTime}</p>
       }
 
-      const span = Math.ceil((((lesson?.end.getTime() ?? 0) - (lesson?.start.getTime() ?? 0)) / 60000) / (slotDuration ?? 30)) || 1;
       const interactive = !lesson || lesson.type === 'booked';
+      let span = Math.ceil((((lesson?.end.getTime() ?? 0) - (lesson?.start.getTime() ?? 0)) / 60000) / (slotDuration ?? 30)) || 1;
       let handler;
+
+      if (lesson) {
+        const copyCurrStart = new Date(currStartTime.toISOString());
+        copyCurrStart.setMinutes(copyCurrStart.getMinutes() + (slotDuration ?? 30) * span);
+
+        if (copyCurrStart < lesson.end) span++;
+      }
 
       if (interactive && onSlotSelect) {
         const copy = new Date(currStartTime.toISOString());
