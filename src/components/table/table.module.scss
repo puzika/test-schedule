@@ -1,0 +1,47 @@
+@use '../../colors';
+
+.table {
+  display: grid;
+  overflow: hidden;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  background-color: colors.$clr-table-header;
+  padding: 1rem 0;
+  border: .1rem solid colors.$clr-border;
+}
+
+.weekDay,
+.cellTime {
+  font-size: 1.4rem;
+  color: colors.$clr-font-lt;
+}
+
+.cell {
+  border: .1rem solid colors.$clr-border;
+}
+
+.cellTextHidden {
+  color: transparent;
+}
+
+.cell:hover .cellTextHidden {
+  color: colors.$clr-font-lt;
+}
+
+.booked {
+  background-color: colors.$clr-booked;
+}
+
+.blocked {
+  background-color: colors.$clr-blocked;
+}
+
+.available {
+  background-color: colors.$clr-available;
+}

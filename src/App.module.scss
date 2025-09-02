@@ -1,34 +1,28 @@
-@use './breakpoints';
+@use './colors';
 
-.tableWrapper {
-  position: relative;
+.app {
   width: 80%;
   margin: 5rem auto;
-
-  @include breakpoints.responsive(phone) {
-    width: 60%;
-  }
 }
 
-.btnWrapper {
-  position: absolute;
-  top: 50%;
+.calendar {
+  border-radius: 1rem;
+  border: .1rem solid colors.$clr-border;
+  overflow: hidden;
 }
 
-.btnWrapperLeft {
-  left: 0;
-  translate: -150% -50%;
-
-  @include breakpoints.responsive(tablet) {
-    translate: -110% -50%;
-  }
+.caption {
+  height: 5rem;
+  background-color: colors.$clr-table-caption;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: colors.$clr-font-lts;
+  font-size: 2rem;
+  padding: 0 2.5rem;
 }
 
-.btnWrapperRight {
-  right: 0;
-  translate: 150% -50%;
-
-  @include breakpoints.responsive(tablet) {
-    translate: 110% -50%;
-  }
+.heading {
+  font-size: 3rem;
+  margin-bottom: 3rem;
 }

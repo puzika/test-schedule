@@ -1,22 +1,13 @@
-@use "sass:color";
 @use '../../colors';
 
 .btn {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 6rem;
-  aspect-ratio: 1;
-  font-size: 3rem;
-  line-height: 0;
-  background-color: colors.$clr-nav-btn;
-  outline: none;
+  background-color: transparent;
   border: none;
-  border-radius: 50%;
+  outline: none;
+  padding: .5rem;
+  color: colors.$clr-base;
   cursor: pointer;
-  transition: background-color .2s;
-
-  &:hover {
-    background-color: color.adjust(colors.$clr-nav-btn, $lightness: -10%);
-  }
 }

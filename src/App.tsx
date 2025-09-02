@@ -1,33 +1,23 @@
 import { useEffect, useState } from "react";
-import type { View } from "./lib/definitions";
-import Calendar from "./components/calendar/calendar.component";
-import NavBtn from "./components/nav-btn/nav-btn.component";
 import lessons from "./lib/lessons";
+import { colOps, months } from "./lib/utils";
+import Calendar from "./components/table/table.component";
+import NavBtn from "./components/nav-btn/nav-btn.component";
 import styles from './App.module.scss';
 
-function determineView(): View {
-  const width = window.innerWidth;
-
-  if (width > 900) return "week";
-  if (width < 600) return "day";
-
-  return "3days";
-}
-
 export default function App() {
-  const [view, setView] = useState<View>(determineView());
-  const [startDate, setStartDate] = useState<Date>(new Date(2025, 7, 31, 0, 0));
-  const colOps: Record<typeof view, number> = {
-    "day": 1,
-    "3days": 3,
-    "week": 7,
-  }
-
-  console.log(startDate);
+  const [view, setView] = useState<'day' | '3days' | 'week'>('week');
+  const [startDate, setStartDate] = useState<Date>(new Date(2025, 7, 31, 0, 0, 0));
+  const endDate = new Date(startDate.toISOString());
+  endDate.setDate(startDate.getDate() + colOps[view] - 1);
 
   useEffect(() => {
     const handleResize = () => {
-      setView(determineView());
+      const width = window.innerWidth;
+
+      if (width > 900) setView('week');
+      else if (width < 600) setView('day');
+      else setView('3days');
     }
 
     window.addEventListener('resize', handleResize);
@@ -55,19 +45,35 @@ export default function App() {
     setStartDate(copy);
   }
 
+  const onSelectHandler = (slot: { start: Date, end: Date }) => {
+    const {start, end} = slot;
+    const startHours = `${start.getHours()}`.padStart(2, '0');
+    const startMinutes = `${start.getMinutes()}`.padStart(2, '0');
+    const endHours = `${end.getHours()}`.padStart(2, '0');
+    const endMinutes = `${end.getMinutes()}`.padStart(2, '0');
+    const time = `${startHours}:${startMinutes} - ${endHours}:${endMinutes}`;
+    alert(time);
+  }
+
   return (
-    <div className={styles.tableWrapper}>
-      <Calendar 
-        view={view}
-        startDate={startDate}
-        lessons={lessonsInView}
-        slotDuration={60}
-      />
-      <div className={`${styles.btnWrapper} ${styles.btnWrapperLeft}`}>
-        <NavBtn direction='back' handler={handleBack} />
-      </div>
-      <div className={`${styles.btnWrapper} ${styles.btnWrapperRight}`}>
-        <NavBtn direction='forward' handler={handleForward} />
+    <div className={styles.app}>
+      <h1 className={styles.heading}>Teacher Schedule</h1>
+      <div className={styles.calendar}>
+        <div className={styles.caption}>
+          <NavBtn direction="left" handler={handleBack} />
+          <p>
+            {months[startDate.getMonth()]} {startDate.getDate()}, {startDate.getFullYear()} -
+            {months[endDate.getMonth()]} {endDate.getDate()}, {endDate.getFullYear()}
+          </p>
+          <NavBtn direction="right" handler={handleForward} />
+        </div>
+        <Calendar 
+          view={view}
+          startDate={startDate}
+          lessons={lessonsInView}
+          slotDuration={30}
+          onSlotSelect={onSelectHandler}
+        />
       </div>
     </div>
   )

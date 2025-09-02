@@ -70,8 +70,4 @@ const lessons: Lesson[] = [
   },
 ];
 
-export function book(lesson: Lesson) {
-  lessons.push(lesson);
-}
-
 export default lessons;
